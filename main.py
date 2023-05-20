@@ -449,7 +449,20 @@ difficulty_label.pack(pady=10)
 
 difficulty_var = tk.StringVar(window)
 difficulty_var.set("Level of Difficulty")
-        
+difficulty_dropdown = tk.OptionMenu(window, difficulty_var, "Easy", "Medium", "Hard")
+difficulty_dropdown.configure(width=30, height=1, bg="Blue", fg="white")
+difficulty_dropdown["menu"].config(font=("Arial", 10, "italic"))
+difficulty_dropdown.pack()
+
+start_button = tk.Button(window, text="Start Alphabeta",command=lambda: start_game_with_alpha(get_depth(difficulty_var.get())))
+start_button.configure(width=15, height=2, bg="red", fg="white", font=("Arial", 10, "italic"))
+start_button.place(relx=0.48, rely=0.5, anchor=tk.E)
+
+start_button_MiniMax = tk.Button(window, text="Start Minimax",command=lambda: start_game_with_minimax(get_depth(difficulty_var.get())))
+start_button_MiniMax.configure(width=15, height=2, bg="red", fg="white", font=("Arial", 10, "italic"))
+start_button_MiniMax.place(relx=0.52, rely=0.5, anchor=tk.W)
+
+window.mainloop()     
         
         
         
