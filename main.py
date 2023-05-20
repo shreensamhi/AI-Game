@@ -344,4 +344,86 @@ def start_game_with_minimax(depth):
                 sys.exit()
 
         # Update the display
-        pygame.display.update()                                    
+        pygame.display.update()   
+        
+def start_game_with_alpha(depth):
+    global turn,game_over
+    # Main game loop
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if turn == 0:
+                # Computer player 1
+                col, minimax_score = alphabeta(board, depth,-float('inf'), float('inf'), True)
+
+                if is_valid_location(board, col):
+                    row = get_next_open_row(board, col)
+                    drop_piece(board, row, col, 1)
+
+                    if winning_move(board, 1):
+                        label = myfont.render("BLUE wins", 1, RED)
+                        screen.blit(label, (40, 10))
+                        pygame.display.update()
+                        pygame.time.wait(3000)
+                        game_over = True
+
+                    turn += 1
+                    turn = turn % 2
+
+                    print_board(board)
+                    draw_board(board)
+
+            else:
+
+                # Computer player 2
+                col = random.randint(0, COLUMN_COUNT - 1)
+                minimax_score = alphabeta(board, depth, -float('inf'), float('inf'), False)
+
+                if is_valid_location(board, col):
+                    row = get_next_open_row(board, col)
+                    drop_piece(board, row, col, 2)
+
+                    if winning_move(board, 2):
+                        label = myfont.render("WHITE wins", 1, RED)
+                        screen.blit(label, (40, 10))
+                        pygame.display.update()
+                        pygame.time.wait(3000)
+                        game_over = True
+
+                    turn += 1
+                    turn = turn % 2
+
+                    print_board(board)
+                    draw_board(board)
+
+            if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
+                # Player move
+                posx = event.pos[0]
+                col = int(posx // SQUARE_SIZE)
+
+                if is_valid_location(board, col):
+                    row = get_next_open_row(board, col)
+                    drop_piece(board, row, col, 1)
+
+                    if winning_move(board, 1):
+                        label = myfont.render("BLUE wins", 1, RED)
+                        screen.blit(label, (40, 10))
+                        pygame.display.update()
+                        pygame.time.wait(3000)
+                        game_over = True
+
+                    turn += 1
+                    turn = turn % 2
+
+                    print_board(board)
+                    draw_board(board)
+
+            if game_over:
+                pygame.time.wait(3000)
+                pygame.quit()
+                sys.exit()
+
+        # Update the display
+        pygame.display.update()        
