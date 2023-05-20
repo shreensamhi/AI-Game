@@ -426,4 +426,31 @@ def start_game_with_alpha(depth):
                 sys.exit()
 
         # Update the display
-        pygame.display.update()        
+        pygame.display.update()    
+         
+ def get_depth(difficulty_level):
+        if difficulty_level == "Easy":
+            return 3
+        elif difficulty_level == "Medium":
+            return 4
+        elif difficulty_level == "Hard":
+            return 5
+
+window = tk.Tk()
+window.title("Connect 4")
+
+window.configure(bg="black")
+window.geometry("300x300")  # Set the width and height as desired
+
+algorithm_var = tk.StringVar(window)
+
+difficulty_label = tk.Label(window, text="Select Difficulty:", bg="black", fg="white", font=("Arial", 10, "italic"))
+difficulty_label.pack(pady=10)
+
+difficulty_var = tk.StringVar(window)
+difficulty_var.set("Level of Difficulty")
+        
+        
+        
+        
+        
